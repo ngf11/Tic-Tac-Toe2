@@ -48,7 +48,15 @@ const game = {
   playerTurn: function () {
     player = this.players[0] ? this.players[1] : this.players[0];
   },
-  roundWin: function () {},
+  roundWin: function () {
+    const { board } = gameBoard;
+    if (board[this.winPattern] === true) {
+      this.players.addScore();
+      return `${this.players.name}: ${this.players.token} won this round`;
+    } else {
+      return "tie";
+    }
+  },
   bestOfthree: function () {},
 };
 const displayController = (function () {})();
