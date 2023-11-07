@@ -9,7 +9,7 @@ const gameBoard = (function () {
     }
   }
   const getBoard = () => board;
-
+  board[0][0] = "X";
   return { board, getBoard };
 })();
 
@@ -36,27 +36,76 @@ const game = {
     },
   ],
   winPattern: [
-    [[0][0], [0][1], [0][2]],
-    [[1][0], [1][1], [1][2]],
-    [[2][0], [2][1], [2][2]],
-    [[0][0], [1][0], [2][0]],
-    [[0][1], [1][1], [2][1]],
-    [[0][2], [1][2], [2][2]],
-    [[2][0], [1][1], [0][2]],
-    [[0][0], [1][1], [2][2]],
+    // Rows
+    [
+      [0, 0],
+      [0, 1],
+      [0, 2],
+    ],
+    [
+      [1, 0],
+      [1, 1],
+      [1, 2],
+    ],
+    [
+      [2, 0],
+      [2, 1],
+      [2, 2],
+    ],
+    // Columns
+    [
+      [0, 0],
+      [1, 0],
+      [2, 0],
+    ],
+    [
+      [0, 1],
+      [1, 1],
+      [2, 1],
+    ],
+    [
+      [0, 2],
+      [1, 2],
+      [2, 2],
+    ],
+    // Diagonals
+    [
+      [0, 0],
+      [1, 1],
+      [2, 2],
+    ],
+    [
+      [2, 0],
+      [1, 1],
+      [0, 2],
+    ],
   ],
+
   playerTurn: function () {
-    player = this.players[0] ? this.players[1] : this.players[0];
+    return this.players[0] ? this.players[1] : this.players[0];
   },
+
   roundWin: function () {
     const { board } = gameBoard;
-    if (board[this.winPattern] === true) {
-      this.players.addScore();
-      return `${this.players.name}: ${this.players.token} won this round`;
-    } else {
-      return "tie";
+    function checkForWin(player) {
+      for (const pattern of winPattern) {
+        const [a, b] = pattern[0];
+        const [c, d] = pattern[1];
+        const [e, f] = pattern[2];
+
+        if (
+          board[a][b] === player &&
+          board[c][d] === player &&
+          board[e][f] === player
+        ) {
+          return true; // Player has won using this pattern
+        }
+      }
+
+      return false; // No win using any pattern
     }
   },
   bestOfthree: function () {},
 };
 const displayController = (function () {})();
+const { board } = gameBoard;
