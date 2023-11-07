@@ -10,7 +10,7 @@ const gameBoard = (function () {
   }
   const getBoard = () => board;
 
-  console.table(board);
+  return { board, getBoard };
 })();
 
 function player(name, marker) {
@@ -24,11 +24,17 @@ function player(name, marker) {
   };
 }
 
-const displayController = (function () {})();
-
 const game = {
-  playeOne: player("Palyer One", "X"),
-  PlayerTwo: player("Player Two", "O"),
+  players: [
+    {
+      name: "Player One",
+      token: "X",
+    },
+    {
+      name: "Player Two",
+      token: "O",
+    },
+  ],
   winPattern: [
     [[0][0], [0][1], [0][2]],
     [[1][0], [1][1], [1][2]],
@@ -39,4 +45,10 @@ const game = {
     [[2][0], [1][1], [0][2]],
     [[0][0], [1][1], [2][2]],
   ],
+  playerTurn: function () {
+    player = this.players[0] ? this.players[1] : this.players[0];
+  },
+  roundWin: function () {},
+  bestOfthree: function () {},
 };
+const displayController = (function () {})();
