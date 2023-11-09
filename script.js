@@ -10,7 +10,12 @@ const gameBoard = (function () {
   }
   const getBoard = () => board;
 
-  return { board, getBoard };
+  const updateBoard = (row, column, marker) => {
+    board[row][column] = marker;
+    return board;
+  };
+
+  return { board, getBoard, updateBoard };
 })();
 
 function player(name, marker) {
@@ -28,16 +33,7 @@ function player(name, marker) {
 }
 
 const game = {
-  players: [
-    {
-      name: "Player One",
-      token: "X",
-    },
-    {
-      name: "Player Two",
-      token: "O",
-    },
-  ],
+  players: [player("Player One", "X"), player("Player Two", "O")],
   winPattern: [
     // Rows
     [
@@ -90,17 +86,16 @@ const game = {
   },
   nextTurn: function () {
     this.currentTurn = (this.currentTurn + 1) % this.players.length;
-    playerTurn();
+    this.playerTurn();
   },
 
   roundWin: function (player) {
-    const { board } = gameBoard;
+    const board = gameBoard.getBoard();
 
     for (const pattern of this.winPattern) {
       const [a, b] = pattern[0];
       const [c, d] = pattern[1];
       const [e, f] = pattern[2];
-      gameBoard.getBoard();
 
       if (
         board[a][b] === player.marker &&
@@ -108,6 +103,9 @@ const game = {
         board[e][f] === player.marker
       ) {
         player.addScore();
+        gameBoard.updateBoard(a, b, player.marker);
+        gameBoard.updateBoard(c, d, player.marker);
+        gameBoard.updateBoard(e, f, player.marker);
         return true;
       }
     }
@@ -119,6 +117,8 @@ const game = {
       this.players[0].resetScore();
       this.players[1].resetScore();
       return `${this.players[0].name} has won`;
+    } else {
+      return "No winner yet";
     }
   },
 };
