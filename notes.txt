@@ -8,9 +8,7 @@ winPattern: [
     [[2][0], [1][1], [0][2]],
     [[0][0], [1][1], [2][2]],
   ],
-  players inside of the game object may have isues in the game logic witn players no being called propetly
 
-  implementation of the gameBoard object. It is only partially defined with the board and getBoard properties. You may need to add the necessary methods and functionality to handle the game board operations, such as marking cells and checking for a win.
 
   The bestOfthree method does not handle the case when both players have won three rounds. You can add a condition to check if both players have a score of 3 and return a message indicating a tie.
 

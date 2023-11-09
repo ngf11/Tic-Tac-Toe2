@@ -113,12 +113,16 @@ const game = {
     return false;
   },
   bestOfthree: function () {
-    if (this.players[0].score === 3 || this.players[1].score === 3) {
+    if (this.players[0].score === 3) {
       this.players[0].resetScore();
       this.players[1].resetScore();
       return `${this.players[0].name} has won`;
+    } else if (this.players[1].score === 3) {
+      this.players[0].resetScore();
+      this.players[1].resetScore();
+      return `${this.players[1].name} has won`;
     } else {
-      return "No winner yet";
+      return "Tie";
     }
   },
 };
