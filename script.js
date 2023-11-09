@@ -9,7 +9,7 @@ const gameBoard = (function () {
     }
   }
   const getBoard = () => board;
-  board[0][0] = "X";
+
   return { board, getBoard };
 })();
 
@@ -20,6 +20,9 @@ function player(name, marker) {
     score: 0,
     addScore: function () {
       this.score++;
+    },
+    resetScore: function () {
+      this.score = 0;
     },
   };
 }
@@ -80,32 +83,43 @@ const game = {
       [0, 2],
     ],
   ],
+  currentTurn: 0,
 
   playerTurn: function () {
-    return this.players[0] ? this.players[1] : this.players[0];
+    return this.players[this.currentTurn];
+  },
+  nextTurn: function () {
+    this.currentTurn = (this.currentTurn + 1) % this.players.length;
+    playerTurn();
   },
 
-  roundWin: function () {
+  roundWin: function (player) {
     const { board } = gameBoard;
-    function checkForWin(player) {
-      for (const pattern of winPattern) {
-        const [a, b] = pattern[0];
-        const [c, d] = pattern[1];
-        const [e, f] = pattern[2];
 
-        if (
-          board[a][b] === player &&
-          board[c][d] === player &&
-          board[e][f] === player
-        ) {
-          return true; // Player has won using this pattern
-        }
+    for (const pattern of this.winPattern) {
+      const [a, b] = pattern[0];
+      const [c, d] = pattern[1];
+      const [e, f] = pattern[2];
+      gameBoard.getBoard();
+
+      if (
+        board[a][b] === player.marker &&
+        board[c][d] === player.marker &&
+        board[e][f] === player.marker
+      ) {
+        player.addScore();
+        return true;
       }
+    }
 
-      return false; // No win using any pattern
+    return false;
+  },
+  bestOfthree: function () {
+    if (this.players[0].score === 3 || this.players[1].score === 3) {
+      this.players[0].resetScore();
+      this.players[1].resetScore();
+      return `${this.players[0].name} has won`;
     }
   },
-  bestOfthree: function () {},
 };
 const displayController = (function () {})();
-const { board } = gameBoard;

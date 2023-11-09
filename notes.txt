@@ -1,7 +1,4 @@
-
-
-
-    winPattern: [
+winPattern: [
     [[0][0], [0][1], [0][2]],
     [[1][0], [1][1], [1][2]],
     [[2][0], [2][1], [2][2]],
@@ -11,3 +8,6 @@
     [[2][0], [1][1], [0][2]],
     [[0][0], [1][1], [2][2]],
   ],
+  players : is not calling on on the players constuctor
+
+  implementation of the gameBoard object. It is only partially defined with the board and getBoard properties. You may need to add the necessary methods and functionality to handle the game board operations, such as marking cells and checking for a win.
