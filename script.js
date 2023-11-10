@@ -8,13 +8,16 @@ const gameBoard = (function () {
       board[i][j] = [];
     }
   }
+
   const getBoard = () => board;
 
-  const updateBoard = (row, column, marker) => {
-    board[row][column] = marker;
+  function updateBoard(rows, columns, marker) {
+    board[rows][columns] = marker;
+    console.log(board[rows][columns]);
     return board;
-  };
-
+  }
+  board[0][0] = "X";
+  console.table(board);
   return { board, getBoard, updateBoard };
 })();
 
@@ -126,4 +129,21 @@ const game = {
     }
   },
 };
-const displayController = (function () {})();
+
+const displayController = (function () {
+  const { board, getBoard, updateBoard } = gameBoard;
+  const content = document.querySelector(".content");
+  const header = document.querySelector(".header");
+  const main = document.querySelector(".main");
+  const div = document.createElement("div");
+  div.classList.add("game-board");
+  main.appendChild(div);
+  board.forEach((row) => {
+    row.forEach((cell) => {
+      const cellElement = document.createElement("div");
+      cellElement.classList.add("cell");
+      cellElement.textContent = cell;
+      div.appendChild(cellElement);
+    });
+  });
+})();
