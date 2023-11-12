@@ -16,7 +16,7 @@ const gameBoard = (function () {
     console.log(board[rows][columns]);
     return board;
   }
-  board[0][0] = "X";
+
   console.table(board);
   return { board, getBoard, updateBoard };
 })();
