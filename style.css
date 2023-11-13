@@ -7,6 +7,9 @@
 .content {
   display: flex;
   flex-direction: column;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
@@ -15,16 +18,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
-main {
+.main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 75vh;
-  border: 1px solid black;
+  width: 100vw;
+  margin: 2rem;
+  padding: 4rem;
 }
 
 .game-board {

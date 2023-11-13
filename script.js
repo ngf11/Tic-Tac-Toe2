@@ -132,6 +132,7 @@ const game = {
 
 const displayController = (function () {
   const { board, getBoard, updateBoard } = gameBoard;
+  const { bestOfthree, roundWin, nextTurn, players } = game;
   const content = document.querySelector(".content");
   const header = document.querySelector(".header");
   const main = document.querySelector(".main");
