@@ -23,3 +23,5 @@ cells.forEach((cell) => {
 });
 
 These event listeners are attached to each cell of the game board. When a cell is clicked, the handleMove function of the game object is called to process the move.
+
+Add an event listeners for each click of the cells
